@@ -257,6 +257,4 @@ Planned future improvements include:
 
 # Project Goal
 
-The long-term goal of WhatsUpIn is to become an **AI travel assistant that delivers highly personalized travel experiences instantly**, saving users hours of research and planning.
-
-
+The long-term goal of WhatsUpIn is to become an **AI travel assistant that delivers highly personalized travel experiences instantly**, saving users hours of research and planning. 
