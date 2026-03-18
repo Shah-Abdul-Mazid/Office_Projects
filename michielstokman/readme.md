@@ -1,40 +1,61 @@
-# AI Story & Meditation Studio
+# üßò AI Story & Meditation Studio (Backend)
 
-A FastAPI backend that uses OpenAI to draft 900ñ1500-word story/meditation episodes and renders them into Guide + Student voice tracks for narration.
+A powerful, standalone AI-powered storytelling and meditation platform built with **FastAPI**. This system automatically generates deep, long-form meditation scripts, converts them into high-quality multi-voice narration for free, and prepares them for podcast and social media distribution.
 
-## Core Features
-- AI-generated episodes with semantic sections (Introduction, Journey, Reflection, Close) plus optional focus/pacing hints.
-- Multi-voice TTS with separate Guide and Student cues backed by gtts.
-- Downloadable narration files served from output/audio/ for cataloging and reuse.
-- Monthly bulk story generation hook via POST /stories/full to seed a content library.
-- Audio management system that keeps every Guide/Student track and attaches UUID-named MP3s to the library pipeline.
-- Automated daily RSS publishing workflow that pushes the latest episodes (Guide + Student audio) to Spotify, Apple Podcasts, and other audio platforms.
-- Social media automation hooks so the same episode text drives Facebook and Instagram captions along with creative prompts.
-- Feedback capture connectors that log user interactions (likes, skips, ratings) so you can refine prompt templates and pacing.
-- Multi-language readiness: swap theme/mood prompts per locale, translate audience cues, and map oice_tld_overrides to regional Google TLDs so stories and promotional posts sound native.
+---
 
-## Operations & Automation
-- **Daily RSS publishing** ñ schedule a job that calls /orchestrate, saves the returned MP3s, and mines the RSS feed (ss_feed.xml) for every release.
-- **Social media automation** ñ reuse the generated 	itle/episode_text summary to emit Facebook and Instagram posts (the response includes social_copy you can pipe into your marketing stack).
-- **Feedback capture** ñ each orchestration run appends a row to eedback_log.csv, letting you measure audience response and adjust future prompts.
-- **Multi-language content** ñ orchestrate localized episodes by changing the prompt inputs and updating oice_tld_overrides so both stories and promotions stay culturally in tune.
+## üöÄ Key Features
 
-## Setup
-1. Create and activate a virtual environment (e.g., python -m venv .venv followed by .\\venv\\Scripts\\Activate on Windows).
-2. Install dependencies: pip install -r requirements.txt.
-3. Copy .env.example to .env and set OPENAI_API_KEY plus any other overrides (RSS path, feedback path).
-4. Start the server: uvicorn app.main:app --reload (omit --reload on Windows if the reload pipe fails).
+*   **AI Story Generation**: Craft 900‚Äì1500 word meditation scripts via OpenAI GPT-4o-mini.
+*   **Free Multi-Voice TTS**: High-quality 'Guide' and 'Student' voices using `edge-tts` (No API keys required for audio).
+*   **Bulk Month Generation**: Background processing for generating 30+ episodes in one click.
+*   **Spotify-Ready RSS**: Automated `rss_feed.xml` with full iTunes/Spotify metadata compatibility.
+*   **Social Media Automation**: Automated platform-specific copy generation for Facebook & Instagram (Meta Graph API).
+*   **Integrated Library**: Secure SQLite database and file management for all audio assets.
 
-## Endpoints
-- POST /stories: Submit 	heme, udience, mood, and optional ocus/pacing. Returns the generated episode text, word count, used model, and placeholder voice markers.
-- POST /stories/full: Create the episode, clean the Markdown-heavy script, and synthesize Guide/Student narration in one go. The response includes guidance_audio paths for both voices so you never paste the text manually.
-- POST /orchestrate: Run the full studio workflowóstory generation, Guide + Student TTS, RSS feed update, feedback logging, and social copy outputóin a single request.
-- POST /stories/tts: Provide story text plus voice (guide or student) to produce a narrated MP3 path.
-- GET /audio/{file_name}: Download a previously saved voice track.
+---
 
-## Voice Guidance
-Guide and Student voices map to different Google TLDs to keep their timbre distinct. Each TTS call saves a UUID-named MP3 in output/audio/, so you can regenerate either voice without overwriting earlier files.
+## üõ†Ô∏è Getting Started
 
-## Notes
-- Keep the OpenAI API key outside version control and refresh it if you see a Quota exceeded or billing warning on [Platform OpenAI](https://platform.openai.com).
-- Adjust MIN_STORY_WORDS/MAX_STORY_WORDS in .env if you need longer or shorter episodes for certain channels.
+### 1. Prerequisites
+*   Python 3.10+
+*   OpenAI API Key
+
+### 2. Installation
+```bash
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 3. Configuration (`.env`)
+Create a `.env` file in the root directory:
+```env
+OPENAI_API_KEY=your_openai_key
+PUBLIC_BASE_URL=http://localhost:8000
+DATABASE_URL=sqlite:///./studio.db
+SECRET_KEY=generate_a_secure_key
+```
+
+### 4. Running the Server
+```bash
+uvicorn app.main:app --reload
+```
+Once running, visit **`http://localhost:8000/docs`** for the interactive API documentation.
+
+---
+
+## üéß API Usage Flow
+
+1.  **Login**: Authenticate via `POST /token` (Default: `admin@example.com` / `admin123`).
+2.  **Generate**: Use `POST /stories/full` for a complete script + voiceover.
+3.  **Listen**: Access audio via `http://localhost:8000/audio/guide.mp3`.
+4.  **Publish**: Point your podcast host (Spotify/Buzzsprout) to `http://your-ip:8000/rss_feed.xml`.
+
+---
+
+## üìÇ Project Structure
+*   `app/main.py`: API endpoints and core logic.
+*   `app/services/ai_story.py`: OpenAI generation pipeline.
+*   `app/services/tts.py`: Free Edge-TTS integration.
+*   `app/services/orchestrator.py`: Full automation system (RSS + Social).
+*   `output/library/`: Storage for all generated episodes and assets.
