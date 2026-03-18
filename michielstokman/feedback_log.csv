@@ -1,2 +1,3 @@
 timestamp,title,mood,guide_ready,student_ready
 2026-03-17T00:11:38.782709,Evening calm for busy parents,"soft, reassuring",voice=<Voice.guide: 'guide'> path=WindowsPath('output/audio/guide-a7740a2f16f24d88b2ae86360164e85b.mp3'),voice=<Voice.student: 'student'> path=WindowsPath('output/audio/student-0e54661031e043aeb53a742fc7609665.mp3')
+2026-03-17T23:11:06.723213+00:00,listener_feedback,20260317230848-letting-go-a-mindful-journey-to-rest-39c1656f,,,1,string,string,,

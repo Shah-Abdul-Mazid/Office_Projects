@@ -1,9 +1,0 @@
-fastapi>=0.116.0
-uvicorn[standard]>=0.35.0
-sqlalchemy>=2.0.36
-psycopg[binary]>=3.2.0
-pydantic-settings>=2.6.0
-openai>=1.109.0
-httpx>=0.28.0
-pydub>=0.25.1
-boto3>=1.35.0
