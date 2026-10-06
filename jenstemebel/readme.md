@@ -231,14 +231,18 @@ Below is the automation workflow used in this project.
 ![Workflow Part 3](screenshots/workflow-part3.png)
 # Expected Output
 
+## 📄 Submission Response
+
 After submission, users receive:
 
-- A personalized travel guide
+- Personalized travel guide
 - Activity recommendations
 - Accommodation suggestions
 - Google Maps links
 - Booking links
 - Beautifully formatted email
+
+[📥 View Submission Response PDF](WhatsUpIn%20%E2%80%93%20AI%20Powered%20Personalized%20Travel%20Recommendation%20Engine.pdf)
 
 ---
 
